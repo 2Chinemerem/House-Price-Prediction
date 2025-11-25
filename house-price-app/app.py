@@ -1,28 +1,31 @@
 import streamlit as st
 import pickle
 import numpy as np
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 st.title("🏠 House Price Prediction App")
 
 # Load Models
-with open("regressor.pkl", "rb") as f:
+with open(os.path.join(BASE_DIR, "regressor.pkl"), "rb") as f:
     reg_model = pickle.load(f)
 
-with open("lasso.pkl", "rb") as f:
+with open(os.path.join(BASE_DIR, "lasso.pkl"), "rb") as f:
     lasso_model = pickle.load(f)
 
-with open("ridge.pkl", "rb") as f:
+with open(os.path.join(BASE_DIR, "ridge.pkl"), "rb") as f:
     ridge_model = pickle.load(f)
 
 
 # Load Scaler & Encoder
-with open("scaler.pkl", "rb") as f:
+with open(os.path.join(BASE_DIR, "scaler.pkl"), "rb") as f:
     scaler = pickle.load(f)
 
-with open("encoder.pkl", "rb") as f:
+with open(os.path.join(BASE_DIR, "encoder.pkl"), "rb") as f:
     encoder = pickle.load(f)
 
-with open("poly_feature.pkl", "rb") as f:
+with open(os.path.join(BASE_DIR, "poly_feature.pkl"), "rb") as f:
     poly = pickle.load(f)
 
 
@@ -40,7 +43,7 @@ total_rooms = st.number_input("Total Rooms (Total number of rooms within a block
 total_bedrooms = st.number_input("Total Bedrooms (Total number of bedrooms within a block)", 0.0, value=200.0)
 population = st.number_input("Population (Total number of people residing within a block)", 0.0, value=800.0)
 households = st.number_input("Households (Total number of households living in a block)", 0.0, value=300.0)
-median_income = st.number_input("Median Income", 0.0, value=3.0)
+median_income = st.number_input("Median Income of residents", 0.0, value=3.0)
 
 ocean_proximity = st.selectbox(
     "Ocean Proximity (Location of the house w.r.t ocean/sea)",
